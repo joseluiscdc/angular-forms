@@ -1,4 +1,4 @@
-<h2>Template: Básicos</h2>
+<h2>Template: Basics</h2>
 <hr />
 
 <div class="row">
@@ -11,6 +11,7 @@
             type="text"
             class="form-control"
             ngModel
+            [ngModel]="initForm.product"
             name="product"
             placeholder="Nombre Producto"
             autocomplete="false"
@@ -29,6 +30,7 @@
             type="number"
             class="form-control"
             ngModel
+            [ngModel]="initForm.price"
             name="price"
             placeholder="Precio Producto"
             required
@@ -46,6 +48,7 @@
             type="number"
             class="form-control"
             ngModel
+            [ngModel]="initForm.price"
             name="stock"
             customMin
             [min]="0"
