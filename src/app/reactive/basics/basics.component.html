@@ -13,7 +13,7 @@
             placeholder="Nombre Producto"
             formControlName="name"
           />
-          <span class="form-text text-danger">Esta es una validación</span>
+          <span class="form-text text-danger" *ngIf="isValid('name')">Esta es una validación</span>
         </div>
       </div>
       <div class="mb-3 row">
@@ -25,7 +25,7 @@
             placeholder="Precio Producto"
             formControlName="price"
           />
-          <span class="form-text text-danger"
+          <span class="form-text text-danger" *ngIf="isValid('price')"
             >Esta es una validación</span
           >
         </div>
@@ -39,6 +39,9 @@
             placeholder="Stock Producto"
             formControlName="stock"
           />
+          <span class="form-text text-danger" *ngIf="isValid('stock')"
+            >Esta es una validación</span
+          >          
         </div>
       </div>
       <div class="mb-3 row">
@@ -46,6 +49,7 @@
           <button
             type="submit"
             class="btn btn-primary float-end"
+            [disabled]="myForm.invalid"
           >
             Save
           </button>
@@ -65,7 +69,19 @@
     <pre>{{ myForm.touched }} </pre>
     <span>Value</span>
     <pre>{{ myForm.value | json }} </pre>
-    <span>Errors</span>
-    <pre>{{ myForm.controls.stock?.errors | json }} </pre>
+    <span>Form Errors</span>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Atribute</th>
+          <th scope="col">Error</th>
+        </tr>
+      </thead>
+      <tbody>      
+      <tr><td>Product</td><td><pre>{{ myForm.controls.name?.errors | json }}</pre></td></tr>
+      <tr><td>Price</td><td><pre>{{ myForm.controls.price?.errors | json }}</pre></td></tr>
+      <tr><td>Stock</td><td><pre>{{ myForm.controls.stock?.errors | json }}</pre></td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
