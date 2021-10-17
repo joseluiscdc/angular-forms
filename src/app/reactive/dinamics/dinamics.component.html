@@ -1,7 +1,7 @@
 <h2>Reactive: Dinamics</h2>
 <hr />
 
-<form autocomplete="off">
+<form autocomplete="off"  [formGroup]="myForm" (ngSubmit)="save()">
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Name</label>
     <div class="col-sm-9">
@@ -9,9 +9,10 @@
         type="text"
         class="form-control"
         placeholder="Person Name"
+        formControlName="name"
       />
       <span
-        class="form-text text-danger"
+        class="form-text text-danger" *ngIf="isValid('name')"
         >Esta es una validación</span
       >
     </div>
@@ -23,29 +24,31 @@
         <input
           class="form-control"
           placeholder="Favorito"
+          [formControl]="newGame"
         />
-        <button class="btn btn-outline-primary">Add</button>
+        <button class="btn btn-outline-primary" (click)="addFavorite()">Add</button>
       </div>
     </div>
   </div>
-  <div class="mb-3 row" *ngIf="person.favorites.length > 0">
+  <div class="mb-3 row" *ngIf="favoritesArr.controls.length > 0">
     <label class="col-sm-3 col-form-label">Favorites</label>
-    <div class="col-sm-9 mb-1">
+    <div class="col-sm-9 mb-1" formArrayName="favorites">
       <div
         class="input-group mb-2"
-        *ngFor="let game of person.favorites; let i = index"
+        *ngFor="let game of favoritesArr.controls; let i = index"
       >
         <input
           class="form-control"
+          [formControlName]="i"
         />
-        <button class="btn btn-outline-danger">Del</button>
+        <button class="btn btn-outline-danger" (click)="deleteFavorite(i)">Del</button>
       </div>
     </div>
   </div>
   <div class="mb-3 row">
     <div class="col-sm-12">
       <button
-        type="button"
+        type="submit"
         class="btn btn-primary float-end"
       >
         Save
@@ -54,5 +57,30 @@
   </div>
 </form>
 
-<span>Person</span>
-<pre>{{ person | json }}</pre>
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ myForm.valid }} </pre>
+    <span>Pristine</span>
+    <pre>{{ myForm.pristine }} </pre>
+    <span>Touched</span>
+    <pre>{{ myForm.touched }} </pre>
+    <span>Value</span>
+    <pre>{{ myForm.value | json }} </pre>
+    <span>NewGame</span>
+    <pre>{{ newGame.valid}} </pre> 
+    <pre>{{ newGame.value | json }} </pre>
+    <span>Form Errors</span>
+    <table class="table" aria-describedby="Errors">
+      <thead>
+        <tr>
+          <th scope="col">Atribute</th>
+          <th scope="col">Error</th>
+        </tr>
+      </thead>
+      <tbody>      
+      <tr><td>Name</td><td><pre>{{ myForm.controls.name?.errors | json }}</pre></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
