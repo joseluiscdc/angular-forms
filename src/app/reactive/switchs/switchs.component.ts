@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SwitchsComponent implements OnInit {
   myForm: FormGroup = this.fb.group({
     genre: ['M', Validators.required],
-    notifications: [true, Validators.requiredTrue],
+    notifications: [true, Validators.required],
     terms: [false, Validators.requiredTrue],
   });
 
@@ -29,9 +29,9 @@ export class SwitchsComponent implements OnInit {
     });
     */
 
-    this.myForm.valueChanges.subscribe((form) => {
-      delete form.terms;
-      this.person = form;
+    this.myForm.valueChanges.subscribe(({terms, ...rest}) => {
+      //delete form.terms;
+      this.person = rest;
     });
   }
 
@@ -39,9 +39,6 @@ export class SwitchsComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    const formValue = { ...this.myForm.value };
-    delete formValue.terms;
-    this.myForm = formValue;
-    console.log(this.myForm);
+    console.log(this.myForm.value);
   }
 }
