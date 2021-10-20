@@ -56,7 +56,7 @@
           formControlName="terms"
         />
         <label class="form-check-label" for="flexCheckDisabled">
-            Terms and Conditions
+          Terms and Conditions
         </label>
       </div>
     </div>
@@ -71,23 +71,22 @@
         Save
       </button>
     </div>
-  </div>  
+  </div>
 </form>
 
-
 <div class="row">
-    <div class="col">
-      <span>Valid</span>
-      <pre>{{ myForm.valid }} </pre>
-      <span>Pristine</span>
-      <pre>{{ myForm.pristine }} </pre>
-      <span>Touched</span>
-      <pre>{{ myForm.touched }} </pre>
-      <span>Form</span>
-      <pre>{{ myForm.value | json }} </pre>
-      <span>Person</span>
-      <pre>{{ person | json }} </pre>
-      <span>Terms</span>
-      <pre>{{ myForm.controls?.termCond?.errors | json}} </pre>      
-    </div>
-  </div> 
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ myForm.valid }} </pre>
+    <span>Pristine</span>
+    <pre>{{ myForm.pristine }} </pre>
+    <span>Touched</span>
+    <pre>{{ myForm.touched }} </pre>
+    <span>Form</span>
+    <pre>{{ myForm.value | json }} </pre>
+    <span>Person</span>
+    <pre>{{ person | json }} </pre>
+    <span>Terms</span>
+    <pre>{{ myForm.controls?.termCond?.errors | json }} </pre>
+  </div>
+</div>
