@@ -20,5 +20,9 @@ export class SidemenuComponent {
     { txt: 'Basics', rt: './reactive/basics' },
     { txt: 'Dinamics', rt: './reactive/dinamics' },
     { txt: 'Switchs', rt: './reactive/switchs' },
+  ];
+  authMenu: MenuItem[] = [
+    { txt: 'Registry', rt: './auth/registry' },
+    { txt: 'Login', rt: './auth/login' },
   ];  
 }
