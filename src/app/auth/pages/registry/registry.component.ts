@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { nameValidatePattern, mailValidatePattern, validatePerson } from 'src/app/shared/validator/validations'; '../../../shared/validator/validations'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidatorService } from '../../../shared/validator/validator.service';
+import { EmailValidatorService } from '../../../shared/validator/email-validator.service';
 
 @Component({
   selector: 'app-registry',
@@ -12,31 +12,48 @@ export class RegistryComponent implements OnInit {
   myForm: FormGroup = this.fb.group({
     name: [
       '',
-      [Validators.required, Validators.pattern(this.validations.nameValidatePattern)],
+      [
+        Validators.required,
+        Validators.pattern(this.validations.nameValidatePattern),
+      ],
     ],
-    email: ['', [Validators.required, Validators.pattern(this.validations.mailValidatePattern)]],
-    username: ['', [Validators.required, this.validations.validatePerson]]
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(this.validations.mailValidatePattern),
+      ],
+      [this.emailValidator],
+    ],
+    username: ['', [Validators.required, this.validations.validatePerson]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmpw: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  constructor(private fb: FormBuilder, private validations: ValidatorService) {}
+  constructor(
+    private fb: FormBuilder,
+    private validations: ValidatorService,
+    private emailValidator: EmailValidatorService
+  ) {}
 
   ngOnInit(): void {
-    this.myForm.reset(
-      {
-        name: 'Jose Luis',
-        email: 'joseluis@mail.com',
-        username: 'joseluiscdc'
-      }
-    )
+    this.myForm.validator = this.validations.validateEqualFields(
+      'password',
+      'confirmpw'
+    );
+
+    this.myForm.reset({
+      name: 'Jose Luis',
+      email: 'joseluis@mail.com',
+      username: 'joseluiscdc',
+    });
   }
 
   isValid(field: string) {
     return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
   }
 
-  isValidForm(){
+  isValidForm() {
     this.myForm.markAllAsTouched();
   }
-
-
 }
