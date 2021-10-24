@@ -30,6 +30,28 @@ export class RegistryComponent implements OnInit {
     confirmpw: ['', [Validators.required, Validators.minLength(6)]],
   });
 
+  get emailErrorMsg(): string {
+    const errors = this.myForm.get('email')?.errors;
+    if (errors?.required) {
+      return 'Email es obligatorio';
+    } else if (errors?.pattern) {
+      return 'Email es invalido';
+    } else if (errors?.emailused) {
+      return 'Email esta en uso';
+    }
+    return '';
+  }
+
+  get nameErrorMsg(): string {
+    const errors = this.myForm.get('name')?.errors;
+    if (errors?.required) {
+      return 'Name es obligatorio';
+    } else if (errors?.pattern) {
+      return 'Name es invalido';
+    }
+    return '';
+  }  
+
   constructor(
     private fb: FormBuilder,
     private validations: ValidatorService,
@@ -49,17 +71,11 @@ export class RegistryComponent implements OnInit {
     });
   }
 
-  isRequired(field: string) {
-    return this.myForm.get(field)?.errors?.required && this.myForm.get(field)?.touched;
-  }
-
   isValid(field: string) {
-    return this.myForm.get(field)?.errors?.pattern && this.myForm.get(field)?.touched;
+    return (
+      this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched
+    );
   }
-  
-  isUsed(field: string) {
-    return this.myForm.get(field)?.errors?.emailUsed && this.myForm.get(field)?.touched;
-  }  
 
   isValidForm() {
     this.myForm.markAllAsTouched();

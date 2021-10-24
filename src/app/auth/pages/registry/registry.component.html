@@ -14,17 +14,15 @@
             placeholder="User name"
           />
           <span class="form-text text-danger" *ngIf="isValid('name')"
-            >Validation error</span
+            >{{ nameErrorMsg }}</span
           >
         </div>
       </div>
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
-          <input type="email" formControlName="email" class="form-control" placeholder="Email name" />
-          <span class="form-text text-danger" *ngIf="isRequired('email')">Email es requerido</span>
-          <span class="form-text text-danger" *ngIf="isValid('email')">Email invalido</span>
-          <span class="form-text text-danger" *ngIf="isUsed('email')">Email esta en uso</span>
+          <input type="email" formControlName="email" class="form-control" placeholder="Email name"/>
+          <span class="form-text text-danger" *ngIf="isValid('email')">{{ emailErrorMsg }}</span>
         </div>
       </div>
       <div class="row mb-3">
