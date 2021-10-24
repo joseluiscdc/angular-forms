@@ -49,9 +49,17 @@ export class RegistryComponent implements OnInit {
     });
   }
 
-  isValid(field: string) {
-    return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
+  isRequired(field: string) {
+    return this.myForm.get(field)?.errors?.required && this.myForm.get(field)?.touched;
   }
+
+  isValid(field: string) {
+    return this.myForm.get(field)?.errors?.pattern && this.myForm.get(field)?.touched;
+  }
+  
+  isUsed(field: string) {
+    return this.myForm.get(field)?.errors?.emailUsed && this.myForm.get(field)?.touched;
+  }  
 
   isValidForm() {
     this.myForm.markAllAsTouched();
