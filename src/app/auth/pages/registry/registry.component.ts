@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { nameValidatePattern, mailValidatePattern, validatePerson } from 'src/app/shared/validator/validations'; '../../../shared/validator/validations'
+import { ValidatorService } from '../../../shared/validator/validator.service';
 
 @Component({
   selector: 'app-registry',
@@ -7,18 +9,16 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
   styles: [],
 })
 export class RegistryComponent implements OnInit {
-  nameValidatePattern: string = '^([a-zA-Z]+) ([a-zA-Z]+)*';
-  mailValidatePattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   myForm: FormGroup = this.fb.group({
     name: [
       '',
-      [Validators.required, Validators.pattern(this.nameValidatePattern)],
+      [Validators.required, Validators.pattern(this.validations.nameValidatePattern)],
     ],
-    email: ['', [Validators.required, Validators.pattern(this.mailValidatePattern)]],
-    username: ['', [Validators.required, this.validatePerson]]
+    email: ['', [Validators.required, Validators.pattern(this.validations.mailValidatePattern)]],
+    username: ['', [Validators.required, this.validations.validatePerson]]
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private validations: ValidatorService) {}
 
   ngOnInit(): void {
     this.myForm.reset(
@@ -38,13 +38,5 @@ export class RegistryComponent implements OnInit {
     this.myForm.markAllAsTouched();
   }
 
-  validatePerson(ctrl: FormControl){
-    const value = ctrl.value?.trim().toLowerCase();
-    if(value === 'jlc'){
-      return {
-        jlc: true
-      }
-    }
-    return null;
-  }
+
 }
